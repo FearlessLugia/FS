@@ -4,7 +4,7 @@ import Country from './components/Country'
 
 const App = () => {
   const [countries, setCountries] = useState([])
-  const [filterValue, setFilterValue] = useState('swit')
+  const [filterValue, setFilterValue] = useState('')
   const [showSingleCountry, setShowSingleCountry] = useState('')
 
   useEffect(() => {

@@ -1,0 +1,22 @@
+GET http://localhost:3001/api/blogs/1
+
+###
+POST http://localhost:3001/api/blogs/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+}
+
+###
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sa",
+    "number": "12345"
+}
+
+###
+DELETE http://localhost:3001/api/persons/64561f909b21d0173ef50604 HTTP/1.1

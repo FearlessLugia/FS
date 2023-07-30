@@ -1,4 +1,4 @@
-import { vote } from '../reducers/anecdoteReducer'
+import { setAnecdotes, vote } from '../reducers/anecdoteReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { notificationChange } from '../reducers/notificationReducer'
 

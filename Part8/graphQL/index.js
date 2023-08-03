@@ -6,7 +6,7 @@ let authors = [
   {
     name: 'Robert Martin',
     id: "afa51ab0-344d-11e9-a414-719c6709cf3e",
-    born: 1952,
+    born: 1952
   },
   {
     name: 'Martin Fowler',
@@ -20,12 +20,12 @@ let authors = [
   },
   {
     name: 'Joshua Kerievsky', // birthyear not known
-    id: "afa5b6f2-344d-11e9-a414-719c6709cf3e",
+    id: "afa5b6f2-344d-11e9-a414-719c6709cf3e"
   },
   {
     name: 'Sandi Metz', // birthyear not known
-    id: "afa5b6f3-344d-11e9-a414-719c6709cf3e",
-  },
+    id: "afa5b6f3-344d-11e9-a414-719c6709cf3e"
+  }
 ]
 
 /*
@@ -82,7 +82,7 @@ let books = [
     author: 'Fyodor Dostoevsky',
     id: "afa5de04-344d-11e9-a414-719c6709cf3e",
     genres: ['classic', 'revolution']
-  },
+  }
 ]
 
 const typeDefs = `
@@ -96,7 +96,7 @@ const typeDefs = `
   type Book {
     title: String!
     published: Int!
-    author: Author!
+    author: String!
     id: ID!
     genres: [String!]!
   }
@@ -118,7 +118,7 @@ const typeDefs = `
     
     editAuthor(
       name: String!
-      born: Int!
+      setBornTo: Int!
     ): Author
   }
 `
@@ -159,7 +159,7 @@ const resolvers = {
         return null
       }
 
-      const updatedAuthor = { ...author, born: args.born }
+      const updatedAuthor = { ...author, born: args.setBornTo }
       authors = authors.map(a => a.name === args.name ? updatedAuthor : a)
       return updatedAuthor
     }
@@ -168,11 +168,11 @@ const resolvers = {
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers
 })
 
 startStandaloneServer(server, {
-  listen: { port: 4000 },
+  listen: { port: 4000 }
 }).then(({ url }) => {
   console.log(`Server ready at ${url}`)
 })

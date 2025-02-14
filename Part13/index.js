@@ -14,10 +14,9 @@ app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 
 const errorHandler = (error, request, response, next) => {
-  console.error(error.message)
-
   if (error.name === 'SequelizeValidationError') {
-    return response.status(400).send(error)
+    const messages = error.errors.map(err => err.message)
+    return response.status(400).send({ error: messages })
   } else if (error.name === 'ValidationError') {
     return response.status(404).json({ error: 'Missing parameter' })
   } else if (error.name === 'IdNotFoundError') {

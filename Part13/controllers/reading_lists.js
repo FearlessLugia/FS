@@ -4,6 +4,20 @@ const { tokenExtractor } = require('../util/middleware')
 const router = require('express').Router()
 
 router.post('/', tokenExtractor, async (req, res) => {
+  const user = await User.findByPk(req.decodedToken.id)
+  const blog = await Blog.findByPk(req.body.blogId)
+
+  const existingReadingList = await ReadingList.findOne({
+    where: {
+      userId: user.id,
+      blogId: blog.id
+    }
+  })
+
+  if (existingReadingList) {
+    return res.status(400).json({ error: 'Blog & User already in reading list' })
+  }
+
   const readingList = await ReadingList.create(req.body)
   res.json(readingList)
 })

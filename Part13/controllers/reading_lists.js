@@ -3,9 +3,13 @@ const { tokenExtractor } = require('../util/middleware')
 
 const router = require('express').Router()
 
-router.post('/', tokenExtractor, async (req, res) => {
+router.post('/', async (req, res) => {
   const user = await User.findByPk(req.decodedToken.id)
   const blog = await Blog.findByPk(req.body.blogId)
+
+  if (!user || !blog) {
+    return res.status(400).json({ error: 'User or Blog not found' })
+  }
 
   const existingReadingList = await ReadingList.findOne({
     where: {

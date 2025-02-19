@@ -1,9 +1,7 @@
-const jwt = require('jsonwebtoken')
 const router = require('express').Router()
 const { Op } = require('sequelize')
 
 const { Blog, User } = require('../models')
-const { SECRET } = require('../util/config')
 const { tokenExtractor } = require('../util/middleware')
 
 const blogFinder = async (req, res, next) => {

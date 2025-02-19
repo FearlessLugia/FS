@@ -1,36 +1,34 @@
 const express = require('express')
 require('express-async-errors')
+const cookieSession = require('cookie-session')
+
 const app = express()
 
 const { PORT } = require('./util/config')
 const { connectToDatabase } = require('./util/db')
+const { errorHandler } = require('./util/middleware')
 
 const blogsRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const logoutRouter = require('./controllers/logout')
 const authorsRouter = require('./controllers/authors')
 const readingListRouter = require('./controllers/reading_lists')
 
 app.use(express.json())
+app.use(
+  cookieSession({
+    signed: false
+  })
+)
 
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/logout', logoutRouter)
 app.use('/api/authors', authorsRouter)
 app.use('/api/readinglists', readingListRouter)
 
-const errorHandler = (error, request, response, next) => {
-  if (error.name === 'SequelizeValidationError') {
-    const messages = error.errors.map(err => err.message)
-    return response.status(400).send({ error: messages })
-  } else if (error.name === 'ValidationError') {
-    return response.status(404).json({ error: 'Missing parameter' })
-  } else if (error.name === 'IdNotFoundError') {
-    return response.status(404).json({ error: 'Id Not found' })
-  }
-
-  next(error)
-}
 app.use(errorHandler)
 
 const start = async () => {

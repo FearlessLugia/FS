@@ -11,6 +11,7 @@
     "migration:down": "node util/rollback.js"
   },
   "dependencies": {
+    "cookie-session": "^2.1.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-async-errors": "^3.1.1",

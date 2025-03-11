@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const Display = ({ title }) => <h2>{title}</h2>
 
@@ -15,7 +15,6 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
-  const [most, setMost] = useState(0)
 
   const handleVoteClick = () => {
     const copy = [...votes]
@@ -24,12 +23,12 @@ const App = () => {
   }
 
   const handleNextClick = () => {
-    setSelected(Math.floor(Math.random() * 7))
+    setSelected(Math.floor(Math.random() * anecdotes.length))
   }
-  
-  useEffect(() => {
-    setMost(votes.map(item => item).indexOf(Math.max(...votes)))
-  }, [votes])
+
+  const mostVotes = () => {
+    return votes.indexOf(Math.max(...votes))
+  }
 
   return (
     <div>
@@ -40,8 +39,8 @@ const App = () => {
       <button onClick={handleNextClick}>next anecdote</button>
 
       <Display title='Anecdote with most votes' />
-      <p>{anecdotes[most]}</p>
-      <p>has {votes[most]} votes</p>
+      <p>{anecdotes[mostVotes()]}</p>
+      <p>has {votes[mostVotes()]} votes</p>
     </div>
   )
 }

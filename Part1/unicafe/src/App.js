@@ -17,8 +17,8 @@ const Statistics = ({good, neutral, bad}) => {
     return <div>No feedback given</div>
   }
 
-  const average = (good - bad) / (good + neutral + bad)
-  const positive = 100 * (good + neutral) / (good + neutral + bad) + ' %'
+  const average = (good - bad) / all
+  const positive = 100 * (good + neutral) / all + ' %'
   return (
     <table>
       <tbody>

@@ -1,0 +1,3 @@
+[submodule "FS3"]
+	path = FS3
+	url = https://github.com/FearlessLugia/FS3
